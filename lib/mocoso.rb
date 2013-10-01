@@ -29,11 +29,9 @@ module Mocoso
 
   def expect object, method, options
     expectation = -> *params {
-      options[:with] = Array options[:with]
+      with = Array options[:with]
 
-      if params != options[:with]
-        raise ExpectationError.new(options[:with], params)
-      end
+      raise ExpectationError.new(with, params) if params != with
 
       options[:return]
     }
