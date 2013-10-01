@@ -74,3 +74,9 @@ test 'expectation without arguments' do |subject|
 
   assert_equal 'new foo', subject.foo
 end
+
+test 'expectation with multiple arguments' do |subject|
+  expect subject, :foo, with: ['new foo', { optional: true }], return: 'new foo'
+
+  assert_equal 'new foo', subject.foo('new foo', optional: true)
+end
