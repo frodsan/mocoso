@@ -68,3 +68,9 @@ test 'expectation without side effects if a block is given' do |subject|
 
   assert_equal 'original', subject.baz('original')
 end
+
+test 'expectation without arguments' do |subject|
+  expect subject, :foo, return: 'new foo'
+
+  assert_equal 'new foo', subject.foo
+end
