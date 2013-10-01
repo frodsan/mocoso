@@ -60,3 +60,11 @@ test 'raises an error if expectation are not met' do |subject|
 
   assert_raise(ExpectationError) { subject.baz('another') }
 end
+
+test 'expectation without side effects if a block is given' do |subject|
+  expect subject, :baz, with: 'value', return: 'mocked' do
+    assert_equal 'mocked', subject.baz('value')
+  end
+
+  assert_equal 'original', subject.baz('original')
+end

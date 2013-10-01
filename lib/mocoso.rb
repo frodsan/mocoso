@@ -28,13 +28,21 @@ module Mocoso
   private :stub_method_name
 
   def expect object, method, options
-    stub object, method => lambda { |*params|
-      options[:with] = Array(options[:with])
+    expectation = -> *params {
+      options[:with] = Array options[:with]
+
       if params != options[:with]
         raise ExpectationError.new(options[:with], params)
       end
+
       options[:return]
     }
+
+    if block_given?
+      stub object, method => expectation, &proc
+    else
+      stub object, method => expectation
+    end
   end
 
   class ExpectationError < ArgumentError
