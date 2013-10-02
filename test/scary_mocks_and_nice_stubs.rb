@@ -58,7 +58,7 @@ end
 test 'raises an error if expectation are not met' do |subject|
   expect subject, :baz, with: 'value', return: 'result'
 
-  subject.baz('another')
+  assert_raise(Mocoso::ExpectationError) { subject.baz('another') }
 end
 
 test 'expectation without side effects if a block is given' do |subject|
