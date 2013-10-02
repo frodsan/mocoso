@@ -43,8 +43,14 @@ module Mocoso
     end
   end
 
+  # Raised by Mocoso#expect when a expectation is not fulfilled.
+  #
+  #   expect object, :method, with: 'argument', returns: nil
+  #
+  #   object.method 'unexpected argument'
+  #   # => Mocoso::ExpectationError: Expected ["argument"], got ["unexpected argument"]
   class ExpectationError < ArgumentError
-    def initialize expected, actual
+    def initialize expected, actual # :nodoc
       super "Expected #{expected.inspect}, got #{actual.inspect}"
     end
   end
