@@ -1,4 +1,12 @@
 module Mocoso
+  # Raised by Mocoso#expect when a expectation is not fulfilled.
+  #
+  #   expect object, :method, with: 'argument', returns: nil
+  #
+  #   object.method 'unexpected argument'
+  #   # => Mocoso::ExpectationError: Expected ["argument"], got ["unexpected argument"]
+  ExpectationError = Class.new ArgumentError
+
   def stub object, methods
     metaclass = object.singleton_class
 
@@ -31,7 +39,7 @@ module Mocoso
     expectation = -> *params {
       with = Array options[:with]
 
-      raise ExpectationError.new(with, params) if params != with
+      raise ExpectationError, "Expected #{with}, got #{params}" if params != with
 
       options[:return]
     }
@@ -40,18 +48,6 @@ module Mocoso
       stub object, method => expectation, &proc
     else
       stub object, method => expectation
-    end
-  end
-
-  # Raised by Mocoso#expect when a expectation is not fulfilled.
-  #
-  #   expect object, :method, with: 'argument', returns: nil
-  #
-  #   object.method 'unexpected argument'
-  #   # => Mocoso::ExpectationError: Expected ["argument"], got ["unexpected argument"]
-  class ExpectationError < ArgumentError
-    def initialize expected, actual # :nodoc
-      super "Expected #{expected.inspect}, got #{actual.inspect}"
     end
   end
 end
