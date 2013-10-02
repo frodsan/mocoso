@@ -1,6 +1,6 @@
 module Mocoso
   def stub object, methods
-    metaclass = class << object; self; end
+    metaclass = object.singleton_class
 
     methods.each do |method, result|
       metaclass.send :alias_method, stub_method_name(method), method
