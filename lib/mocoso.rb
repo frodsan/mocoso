@@ -5,7 +5,7 @@ module Mocoso
   #
   #   object.method 'unexpected argument'
   #   # => Mocoso::ExpectationError: Expected ["argument"], got ["unexpected argument"]
-  ExpectationError = Class.new ArgumentError
+  ExpectationError = Class.new StandardError
 
   def stub object, methods
     metaclass = object.singleton_class
