@@ -1,7 +1,7 @@
 Mocoso [![Build Status](https://travis-ci.org/frodsan/mocoso.png)](https://travis-ci.org/frodsan/mocoso)
 ======
 
-Yet Another Simple Stub & Mock library. This is inspired by tools such as
+Yet Another Simple Stub & Mock library. This is stolen from tools such as
 [Minitest::Mock][minitest], [Override][override] and [Mocha][mocha].
 
 Motivation

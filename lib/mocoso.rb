@@ -34,7 +34,7 @@
 #
 # Note: this example uses the test framework Cutest[1]:
 #
-# Mocoso is inspired in Override[2], Minitest::Mock[3] and Mocha[4].
+# Mocoso is stolen from Override[2], Minitest::Mock[3] and Mocha[4].
 #
 # * [1]: https://github.com/djanowski/cutest/
 # * [2]: https://github.com/soveran/override/
