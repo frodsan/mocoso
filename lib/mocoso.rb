@@ -97,8 +97,11 @@ module Mocoso
 
     methods.each do |method, result|
       metaclass.send :alias_method, stub_method_name(method), method
-      metaclass.send :define_method, method do |*args|
-        result.respond_to?(:call) ? result.call(*args) : result
+
+      if result.respond_to?(:call)
+        metaclass.send(:define_method, method) { |*args| result.call(*args) }
+      else
+        metaclass.send(:define_method, method) { result }
       end
     end
 
