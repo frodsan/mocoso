@@ -5,6 +5,7 @@ module Mocoso
   #
   #   object.method 'unexpected argument'
   #   # => Mocoso::ExpectationError: Expected ["argument"], got ["unexpected argument"]
+  #
   ExpectationError = Class.new StandardError
 
   # Rewrites each method from `methods` and defined in +object+. `methods` is a
@@ -47,6 +48,7 @@ module Mocoso
   #
   #   User.all.length
   #   # => 5
+  #
   def stub object, methods
     metaclass = object.singleton_class
 
@@ -83,6 +85,7 @@ module Mocoso
   # own responsibility.
   #
   # This method was born as a helper for #stub.
+  #
   def unstub object, methods
     metaclass = object.singleton_class
 
@@ -129,6 +132,7 @@ module Mocoso
   #
   #   User.exists? 1
   #   # => false
+  #
   def expect object, method, options
     expectation = -> *params {
       with = options.fetch(:with) { [] }
