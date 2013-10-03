@@ -46,7 +46,7 @@ A quick example (uses [Cutest][cutest]):
       assert user.valid?
     end
 
-Check [Official Documentation]() for more details.
+Check [Official Documentation][docs] for more details.
 
 License
 -------
@@ -71,6 +71,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+[docs]: http://rubydoc.info/github/frodsan/mocoso/
 [cutest]: https://github.com/djanowski/cutest/
 [override]: https://github.com/soveran/override/
 [minitest]: https://github.com/seattlerb/minitest/
