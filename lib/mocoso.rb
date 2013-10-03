@@ -36,6 +36,13 @@ module Mocoso
   #
   #   Mocoso.unstub object, [:foo]
   #   object.foo #=> "foo"
+  #
+  # I personally recommend to use a block on #stub or #expect to avoid side effects,
+  # because if you #unstub a method which still has unsatisfied expectations, you
+  # may be removing the only way those expectations can be satisfied. Use it on your
+  # own responsibility.
+  #
+  # Note for trolls: This method born as a helper for #stub.
   def unstub object, methods
     metaclass = object.singleton_class
 
@@ -70,10 +77,7 @@ module Mocoso
   #   # => true
   #
   # Note that it will rewrite the method in the object. If you want to set an
-  # expectation without side effects, you can pass a block or use #unstub.
-  #
-  #   class User < Ohm::Model
-  #   end
+  # expectation without side effects, you can pass a block.
   #
   #   User.exists? 1
   #   # => false
@@ -84,14 +88,6 @@ module Mocoso
   #   end
   #
   #   User.exists? 1
-  #   # => false
-  #
-  #   Mocoso.expect User, :exists?, with: [1], returns: true
-  #
-  #   User.exists? 1
-  #   # => true
-  #
-  #   Mocoso.unstub User, [:exists?]
   #   # => false
   def expect object, method, options
     expectation = -> *params {
