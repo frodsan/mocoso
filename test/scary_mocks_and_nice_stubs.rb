@@ -37,7 +37,7 @@ test 'stubs method with a callable object' do |subject|
   stub subject, foo: -> { 'new foo' }
 
   assert subject.foo != before
-  assert subject.foo == 'new foo'
+  assert_equal 'new foo', subject.foo
 end
 
 test 'stubs method with a callable object with arguments' do |subject|
@@ -46,6 +46,7 @@ test 'stubs method with a callable object with arguments' do |subject|
   stub subject, foo: ->(a) { "new #{a}" }
 
   assert subject.foo('foo') != before
+  assert_equal 'new foo', subject.foo('foo')
 end
 
 test 'stubs method without side effects if a block is given' do
