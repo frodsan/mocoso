@@ -36,10 +36,10 @@
 #
 # Mocoso is inspired in Override[2], Minitest::Mock[3] and Mocha[4].
 #
-# [1]: https://github.com/djanowski/cutest/
-# [2]: https://github.com/soveran/override/
-# [3]: https://github.com/seattlerb/minitest/
-# [4]: https://github.com/freerange/mocha/
+# * [1]: https://github.com/djanowski/cutest/
+# * [2]: https://github.com/soveran/override/
+# * [3]: https://github.com/seattlerb/minitest/
+# * [4]: https://github.com/freerange/mocha/
 #
 module Mocoso
   # Raised by #expect when a expectation is not fulfilled.
