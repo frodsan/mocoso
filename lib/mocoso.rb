@@ -37,12 +37,12 @@ module Mocoso
   #   Mocoso.unstub object, [:foo]
   #   object.foo #=> "foo"
   #
-  # I personally recommend to use a block on #stub or #expect to avoid side effects,
-  # because if you #unstub a method which still has unsatisfied expectations, you
-  # may be removing the only way those expectations can be satisfied. Use it on your
+  # I personally use a block on #stub or #expect to avoid side effects, because if
+  # you #unstub a method which still has unsatisfied expectations, you may be
+  # removing the only way those expectations can be satisfied. Use it on your
   # own responsibility.
   #
-  # Note for trolls: This method born as a helper for #stub.
+  # This method was born as a helper for #stub.
   def unstub object, methods
     metaclass = object.singleton_class
 
