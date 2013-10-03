@@ -1,5 +1,5 @@
 module Mocoso
-  # Raised by Mocoso#expect when a expectation is not fulfilled.
+  # Raised by +Mocoso#expect+ when a expectation is not fulfilled.
   #
   #   Mocoso.expect object, :method, with: 'argument', returns: nil
   #
@@ -35,9 +35,9 @@ module Mocoso
   end
   private :stub_method_name
 
-  # Expect that method `method` is called with `:with` option and
-  # return `:return` option. If expectations are not met, it raises
-  # `Mocoso::ExpectationError` error.
+  # Expect that method +method+ is called with +:with+ option and
+  # return +:return+ option. If expectations are not met, it raises
+  # +Mocoso::ExpectationError+ error.
   #
   #   class User < Model
   #   end
