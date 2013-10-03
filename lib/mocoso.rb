@@ -1,3 +1,46 @@
+# Yet Another Simple Stub & Mock library, that also:
+#
+#   - Provides features to restore stubbed methods to their original implementations.
+#   - Doesn't allow to stub or mock undefined methods.
+#   - Doesn't monkey-patch any class or object.
+#   - Test-framework agnostic (Doesn't need integration code).
+#
+# == Setup
+#
+# Execute:
+#
+#   gem install mocoso
+#
+# == Usage
+#
+# Quick start:
+#
+#     require 'cutest'
+#     require 'mocoso'
+#
+#     include Mocoso
+#
+#     test 'mocking a class method' do
+#       user = User.new
+#       expect User, :find, with: [1], return: user
+#       assert_equal user, User.find(1)
+#     end
+#
+#     test 'stubbing an instance method' do
+#       user = User.new
+#       stub user, valid?: true
+#       assert user.valid?
+#     end
+#
+# Note: this example uses the test framework Cutest[1]:
+#
+# Mocoso is inspired in Override[2], Minitest::Mock[3] and Mocha[4].
+#
+# [1]: https://github.com/djanowski/cutest/
+# [2]: https://github.com/soveran/override/
+# [3]: https://github.com/seattlerb/minitest/
+# [4]: https://github.com/freerange/mocha/
+#
 module Mocoso
   # Raised by #expect when a expectation is not fulfilled.
   #
