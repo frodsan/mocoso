@@ -1,5 +1,5 @@
 module Mocoso
-  # Raised by +Mocoso#expect+ when a expectation is not fulfilled.
+  # Raised by #expect when a expectation is not fulfilled.
   #
   #   Mocoso.expect object, :method, with: 'argument', returns: nil
   #
@@ -21,11 +21,7 @@ module Mocoso
       begin
         yield
       ensure
-        methods.keys.each do |method|
-          metaclass.send :undef_method, method
-          metaclass.send :alias_method, method, stub_method_name(method)
-          metaclass.send :undef_method, stub_method_name(method)
-        end
+        unstub object, methods.keys
       end
     end
   end
@@ -35,9 +31,10 @@ module Mocoso
   end
   private :stub_method_name
 
-  # Expect that method +method+ is called with +:with+ option and
-  # return +:return+ option. If expectations are not met, it raises
-  # +Mocoso::ExpectationError+ error.
+  # Expect that method +method+ is called with the arguments specified in the
+  # +:with+ option (defaults to +[]+ if it's not given) and returns the value
+  # specified in the +:return+ option. If expectations are not met, it raises
+  # Mocoso::ExpectationError error.
   #
   #   class User < Model
   #   end
@@ -53,7 +50,7 @@ module Mocoso
   #   # => true
   #
   # Note that it will rewrite the method in the object. If you want to set an
-  # expectation without side effects, you must pass a block:
+  # expectation without side effects, you can pass a block or use #unstub.
   #
   #   class User < Ohm::Model
   #   end
@@ -67,6 +64,14 @@ module Mocoso
   #   end
   #
   #   User.exists? 1
+  #   # => false
+  #
+  #   Mocoso.expect User, :exists?, with: [1], returns: true
+  #
+  #   User.exists? 1
+  #   # => true
+  #
+  #   Mocoso.unstub User, [:exists?]
   #   # => false
   def expect object, method, options
     expectation = -> *params {
