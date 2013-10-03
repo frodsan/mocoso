@@ -50,19 +50,19 @@ test 'stubs method without side effects if a block is given' do
 end
 
 test 'succeeds if expectations are met' do |subject|
-  expect subject, :baz, with: 'value', return: 'result'
+  expect subject, :baz, with: ['value'], return: 'result'
 
   assert_equal 'result', subject.baz('value')
 end
 
 test 'raises an error if expectation are not met' do |subject|
-  expect subject, :baz, with: 'value', return: 'result'
+  expect subject, :baz, with: ['value'], return: 'result'
 
   assert_raise(Mocoso::ExpectationError) { subject.baz('another') }
 end
 
 test 'expectation without side effects if a block is given' do |subject|
-  expect subject, :baz, with: 'value', return: 'mocked' do
+  expect subject, :baz, with: ['value'], return: 'mocked' do
     assert_equal 'mocked', subject.baz('value')
   end
 
