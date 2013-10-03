@@ -26,6 +26,26 @@ module Mocoso
     end
   end
 
+  # Removes the specified stubbed +methods+ (added by calls to #stub or #expect) and
+  # restores the original behaviour of the methods before they were stubbed.
+  #
+  #   object.foo # => "foo"
+  #
+  #   Mocoso.stub object, foo: 'new foo'
+  #   object.foo # => "new foo"
+  #
+  #   Mocoso.unstub object, [:foo]
+  #   object.foo #=> "foo"
+  def unstub object, methods
+    metaclass = object.singleton_class
+
+    methods.each do |method|
+      metaclass.send :undef_method, method
+      metaclass.send :alias_method, method, stub_method_name(method)
+      metaclass.send :undef_method, stub_method_name(method)
+    end
+  end
+
   def stub_method_name name
     "__mocoso_#{name}"
   end
