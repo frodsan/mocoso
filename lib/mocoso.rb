@@ -7,6 +7,46 @@ module Mocoso
   #   # => Mocoso::ExpectationError: Expected ["argument"], got ["unexpected argument"]
   ExpectationError = Class.new StandardError
 
+  # Rewrites each method from `methods` and defined in +object+. `methods` is a
+  # Hash that represents stubbed method name symbols as keys and corresponding
+  # return values as values.
+  #
+  #   signup = SignupForm.new params[:user]
+  #
+  #   signup.valid? # => false
+  #   signup.save   # => false
+  #
+  #   Mocoso.stub signup, valid?: true, signup: true
+  #
+  #   signup.valid? # => true
+  #   signup.save   # => true
+  #
+  # You can pass a callable object (responds to +call+) as a value:
+  #
+  #   Mocoso.stub subject, foo: -> { "foo" }, bar: ->(value) { value }
+  #
+  #   subject.foo        # => "foo"
+  #   subject.bar('foo') # => "foo"
+  #
+  # If you try to stub a method that is not defined by the +object+,
+  # it raises an error.
+  #
+  #   Mocoso.stub Object.new, undefined: nil
+  #   # => NameError: undefined method `undefined' for class `Object'
+  #
+  # Note that it will rewrite the method(s) in +object+. If you want to stub a
+  # method without side effects, you should pass a block.
+  #
+  #   User.all.length
+  #   # => 5
+  #
+  #   Mocoso.stub User, all: [] do
+  #     User.all.length
+  #     # => 0
+  #   end
+  #
+  #   User.all.length
+  #   # => 5
   def stub object, methods
     metaclass = object.singleton_class
 
@@ -76,8 +116,8 @@ module Mocoso
   #   user.update name: 'new name'
   #   # => true
   #
-  # Note that it will rewrite the method in the object. If you want to set an
-  # expectation without side effects, you can pass a block.
+  # Note that it will rewrite the method in +object+. If you want to set an
+  # expectation without side effects, you should pass a block.
   #
   #   User.exists? 1
   #   # => false
