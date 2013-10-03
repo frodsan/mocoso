@@ -34,7 +34,7 @@ end
 test 'stubs method with a callable object' do |subject|
   before = subject.foo
 
-  stub subject, foo: ->() { 'new foo' }
+  stub subject, foo: -> { 'new foo' }
 
   assert subject.foo != before
   assert subject.foo == 'new foo'
