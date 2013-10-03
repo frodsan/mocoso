@@ -1,7 +1,7 @@
 module Mocoso
   # Raised by Mocoso#expect when a expectation is not fulfilled.
   #
-  #   expect object, :method, with: 'argument', returns: nil
+  #   Mocoso.expect object, :method, with: 'argument', returns: nil
   #
   #   object.method 'unexpected argument'
   #   # => Mocoso::ExpectationError: Expected ["argument"], got ["unexpected argument"]
