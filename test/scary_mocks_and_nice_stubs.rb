@@ -22,26 +22,23 @@ test 'raises error if block is not given' do |subject|
 end
 
 test 'raises error if object not respond to the given method' do |subject|
-  assert_raise(NameError) { stub(subject, nan: nil, undefined: nil) }
+  assert_raise(NameError) { stub(subject, :nan, nil) }
 end
 
-test 'stubbed methods return new values' do |subject|
-  before_foo = subject.foo
-  before_bar = subject.bar
+test 'stubbed method return new value' do |subject|
+  before = subject.foo
 
-  stub subject, foo: 'new foo', bar: 'new bar' do
+  stub subject, :foo, 'new foo' do
     assert_equal 'new foo', subject.foo
-    assert_equal 'new bar', subject.bar
   end
 
-  assert_equal before_foo, subject.foo
-  assert_equal before_bar, subject.bar
+  assert_equal before, subject.foo
 end
 
 test 'stubs method with a callable object' do |subject|
   before = subject.foo
 
-  stub subject, foo: -> { 'new foo' } do
+  stub subject, :foo, -> { 'new foo' } do
     assert_equal 'new foo', subject.foo
   end
 
@@ -51,7 +48,7 @@ end
 test 'stubs method with a callable object that requires arguments' do |subject|
   before = subject.foo
 
-  stub subject, foo: ->(a) { "new #{a}" } do
+  stub subject, :foo, ->(a) { "new #{a}" } do
     assert_equal 'new foo', subject.foo('foo')
   end
 

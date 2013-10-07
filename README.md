@@ -36,14 +36,18 @@ A quick example (uses [Cutest][cutest]):
 
     test 'mocking a class method' do
       user = User.new
-      expect User, :find, with: [1], return: user
-      assert_equal user, User.find(1)
+
+      expect User, :find, with: [1], return: user do
+        assert_equal user, User.find(1)
+      end
     end
 
     test 'stubbing an instance method' do
       user = User.new
-      stub user, valid?: true
-      assert user.valid?
+
+      stub user, valid?: true do
+        assert user.valid?
+      end
     end
 
 Check [Official Documentation][docs] for more details.

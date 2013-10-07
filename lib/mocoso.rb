@@ -63,17 +63,18 @@ module Mocoso
   #   signup = SignupForm.new params[:user]
   #
   #   signup.valid? # => false
-  #   signup.save   # => false
   #
-  #   Mocoso.stub signup, valid?: true, signup: true do
+  #   Mocoso.stub signup, :valid?, true do
   #     signup.valid? # => true
-  #     signup.save   # => true
   #   end
   #
   # You can pass a callable object (responds to +call+) as a value:
   #
-  #   Mocoso.stub subject, foo: -> { "foo" }, bar: ->(value) { value } do
-  #     subject.foo        # => "foo"
+  #   Mocoso.stub subject, foo: -> { "foo" } do
+  #     subject.foo # => "foo"
+  #   end
+  #
+  #   Mocoso.stub subject, :bar, ->(value) { value } do
   #     subject.bar('foo') # => "foo"
   #   end
   #
@@ -83,34 +84,26 @@ module Mocoso
   #   Mocoso.stub Object.new, undefined: nil
   #   # => NameError: undefined method `undefined' for class `Object'
   #
-  def stub object, methods, &block
+  def stub object, method, result, &block
     metaclass = object.singleton_class
+    stubbed_method = "__mocoso_#{method}"
 
-    methods.each do |method, result|
-      metaclass.send :alias_method, stub_method_name(method), method
+    metaclass.send :alias_method, stubbed_method, method
 
-      if result.respond_to?(:call)
-        metaclass.send(:define_method, method) { |*args| result.(*args) }
-      else
-        metaclass.send(:define_method, method) { result }
-      end
+    if result.respond_to?(:call)
+      metaclass.send(:define_method, method) { |*args| result.(*args) }
+    else
+      metaclass.send(:define_method, method) { result }
     end
 
     begin
       yield
     ensure
-      methods.keys.each do |method|
-        metaclass.send :undef_method, method
-        metaclass.send :alias_method, method, stub_method_name(method)
-        metaclass.send :undef_method, stub_method_name(method)
-      end
+      metaclass.send :undef_method, method
+      metaclass.send :alias_method, method, stubbed_method
+      metaclass.send :undef_method, stubbed_method
     end
   end
-
-  def stub_method_name name
-    "__mocoso_#{name}"
-  end
-  private :stub_method_name
 
   # Expect that method +method+ is called with the arguments specified in the
   # +:with+ option (defaults to +[]+ if it's not given) and returns the value
@@ -137,6 +130,6 @@ module Mocoso
       returns
     }
 
-    stub object, method => expectation, &block
+    stub object, method, expectation, &block
   end
 end
