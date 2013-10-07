@@ -12,7 +12,7 @@ Motivation
 Yes, there are a lot of good libraries out there, but I wanted one that
 meets the following criteria:
 
-* Provides features to restore stubbed methods to their original implementations.
+* Always restore stubbed methods to their original implementations.
 * Doesn't allow to stub or mock undefined methods.
 * Doesn't monkey-patch any class or object.
 * Test-framework agnostic (Doesn't need integration code).
