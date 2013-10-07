@@ -114,24 +114,6 @@ module Mocoso
     end
   end
 
-  # Removes the specified stubbed +methods+ (added by calls to #stub or #expect) and
-  # restores the original behaviour of the methods before they were stubbed.
-  #
-  #   object.foo # => "foo"
-  #
-  #   Mocoso.stub object, foo: 'new foo'
-  #   object.foo # => "new foo"
-  #
-  #   Mocoso.unstub object, [:foo]
-  #   object.foo #=> "foo"
-  #
-  # I personally use a block on #stub or #expect to avoid side effects, because if
-  # you #unstub a method which still has unsatisfied expectations, you may be
-  # removing the only way those expectations can be satisfied. Use it on your
-  # own responsibility.
-  #
-  # This method was born as a helper for #stub.
-  #
   def unstub object, methods
     metaclass = object.singleton_class
 
@@ -141,6 +123,7 @@ module Mocoso
       metaclass.send :undef_method, stub_method_name(method)
     end
   end
+  private :unstub
 
   def stub_method_name name
     "__mocoso_#{name}"

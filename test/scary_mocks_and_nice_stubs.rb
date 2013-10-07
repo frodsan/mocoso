@@ -90,31 +90,3 @@ test 'expectation with multiple arguments' do |subject|
 
   assert_equal 'new foo', subject.foo('new foo', optional: true)
 end
-
-test 'unstub removes specified stubbed methods' do |subject|
-  before_foo = subject.foo
-  before_bar = subject.bar
-
-  stub subject, foo: 'new foo', bar: 'new bar', baz: 'new baz'
-
-  assert before_foo != subject.foo
-  assert before_bar != subject.bar
-
-  unstub subject, [:foo, :bar]
-
-  assert_equal before_foo, subject.foo
-  assert_equal before_bar, subject.bar
-  assert_equal 'new baz', subject.baz
-end
-
-test 'unstub removes specified expectations' do
-  before = Subject.foo
-
-  expect Subject, :foo, return: 'new foo'
-
-  assert_equal 'new foo', Subject.foo
-
-  unstub Subject, [:foo]
-
-  assert_equal before, Subject.foo
-end
