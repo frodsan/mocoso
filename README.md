@@ -1,4 +1,4 @@
-Mocoso [![Build Status](https://travis-ci.org/frodsan/mocoso.png)](https://travis-ci.org/frodsan/mocoso)
+Mocoso
 ======
 
 Yet Another Simple Stub & Mock library. This is stolen from tools such as
