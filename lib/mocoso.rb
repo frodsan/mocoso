@@ -84,16 +84,22 @@ module Mocoso
   #   Mocoso.stub Object.new, undefined: nil
   #   # => NameError: undefined method `undefined' for class `Object'
   #
+  # The same thing happens if a stubbed method is not invoked:
+  #
+  #   Mocoso.stub subject, :foo, 'value' do
+  #   end
+  #   # => Expected method foo not invoked
+  #
   def stub object, method, result, &block
     metaclass = object.singleton_class
     stubbed_method = "__mocoso_#{method}"
+    invoked = false
 
     metaclass.send :alias_method, stubbed_method, method
 
-    if result.respond_to?(:call)
-      metaclass.send(:define_method, method) { |*args| result.(*args) }
-    else
-      metaclass.send(:define_method, method) { result }
+    metaclass.send :define_method, method do |*args|
+      invoked = true
+      result.respond_to?(:call) ? result.call(*args) : result
     end
 
     begin
@@ -102,6 +108,7 @@ module Mocoso
       metaclass.send :undef_method, method
       metaclass.send :alias_method, method, stubbed_method
       metaclass.send :undef_method, stubbed_method
+      raise "Expected method #{method} not invoked" if !invoked
     end
   end
 

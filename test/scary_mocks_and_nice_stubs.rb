@@ -80,3 +80,10 @@ test 'expectation with multiple arguments' do |subject|
     assert_equal 'new foo', subject.foo('new foo', optional: true)
   end
 end
+
+test 'raises error if stubbed method is never invoked' do |subject|
+  assert_raise {
+    stub subject, :foo, 'value' do
+    end
+  }
+end
