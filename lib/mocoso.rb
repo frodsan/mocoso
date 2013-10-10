@@ -135,7 +135,7 @@ module Mocoso
     stub object, method, Expectation.new(options), &block
   end
 
-  # Intended for private use, but you can't overwrite the +call+ method
+  # Intended for private use, but you can overwrite the +call+ method
   # if you want to support more expectation options.
   class Expectation # :nodoc:
     attr :options
