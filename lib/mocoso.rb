@@ -23,7 +23,7 @@
 #     test 'mocking a class method' do
 #       user = User.new
 #
-#       expect User, :find, with: [1], return: user do
+#       expect User, :find, with: [1], returns: user do
 #         assert_equal user, User.find(1)
 #       end
 #     end
@@ -70,7 +70,7 @@ module Mocoso
   #
   # You can pass a callable object (responds to +call+) as a value:
   #
-  #   Mocoso.stub subject, foo: -> { "foo" } do
+  #   Mocoso.stub subject, :foo, -> { "foo" } do
   #     subject.foo # => "foo"
   #   end
   #
@@ -123,7 +123,7 @@ module Mocoso
   #
   #   user = User[1]
   #
-  #   Mocoso.expect user, :update, with: [{ name: 'new name' }], returns: true
+  #   Mocoso.expect user, :update, with: [{ name: 'new name' }], returns: true do
   #     subject.update unexpected: nil
   #     # => Mocoso::ExpectationError: Expected [{:name=>"new name"}], got [{:unexpected=>nil}]
   #

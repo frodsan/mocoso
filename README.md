@@ -37,7 +37,7 @@ A quick example (uses [Cutest][cutest]):
     test 'mocking a class method' do
       user = User.new
 
-      expect User, :find, with: [1], return: user do
+      expect User, :find, with: [1], returns: user do
         assert_equal user, User.find(1)
       end
     end
