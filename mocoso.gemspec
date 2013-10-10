@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'mocoso'
-  s.version     = '0.1.1'
+  s.version     = '0.1.2'
   s.summary     = 'A simple stub & mock library'
   s.description = s.summary
   s.authors     = ['Francesco Rodríguez']
