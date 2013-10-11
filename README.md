@@ -4,6 +4,8 @@ Mocoso
 Yet Another Simple Stub & Mock library. This is stolen from tools such as
 [Minitest::Mock][minitest], [Override][override] and [Mocha][mocha].
 
+**Made in Peru.**
+
 Motivation
 ----------
 
