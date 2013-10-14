@@ -81,13 +81,6 @@ test 'expectation with multiple arguments' do |subject|
   end
 end
 
-test 'raises error if stubbed method is never invoked' do |subject|
-  assert_raise {
-    stub subject, :foo, 'value' do
-    end
-  }
-end
-
 test 'stub within a stub' do |subject|
   stub subject, :foo, 'outer' do
     stub subject, :foo, 'inner' do

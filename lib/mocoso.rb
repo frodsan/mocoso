@@ -78,25 +78,11 @@ module Mocoso
   #     subject.bar('foo') # => "foo"
   #   end
   #
-  # If you try to stub a method that is not defined by the +object+,
-  # it raises an error.
-  #
-  #   Mocoso.stub Object.new, undefined: nil
-  #   # => NameError: undefined method `undefined' for class `Object'
-  #
-  # The same thing happens if a stubbed method is not invoked:
-  #
-  #   Mocoso.stub subject, :foo, 'value' do
-  #   end
-  #   # => Expected method foo not invoked
-  #
   def stub object, method, result, &block
     metaclass = object.singleton_class
     original  = object.method method
-    invoked   = false
 
     metaclass.send :define_method, method do |*args|
-      invoked = true
       result.respond_to?(:call) ? result.call(*args) : result
     end
 
@@ -104,7 +90,6 @@ module Mocoso
   ensure
     metaclass.send :undef_method, method
     metaclass.send :define_method, method, original
-    raise "Expected method #{method} not invoked" if !invoked
   end
 
   # Expect that method +method+ is called with the arguments specified in the
