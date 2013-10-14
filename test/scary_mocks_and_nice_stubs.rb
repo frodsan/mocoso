@@ -18,7 +18,7 @@ setup do
 end
 
 test 'raises error if block is not given' do |subject|
-  assert_raise { stub(subject, foo: 'foo') }
+  assert_raise { stub(subject, :foo, 'foo') }
 end
 
 test 'raises error if object not respond to the given method' do |subject|
