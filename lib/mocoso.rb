@@ -100,13 +100,11 @@ module Mocoso
       result.respond_to?(:call) ? result.call(*args) : result
     end
 
-    begin
-      yield
-    ensure
-      metaclass.send :undef_method, method
-      metaclass.send :define_method, method, original
-      raise "Expected method #{method} not invoked" if !invoked
-    end
+    yield
+  ensure
+    metaclass.send :undef_method, method
+    metaclass.send :define_method, method, original
+    raise "Expected method #{method} not invoked" if !invoked
   end
 
   # Expect that method +method+ is called with the arguments specified in the
