@@ -127,22 +127,12 @@ module Mocoso
   #   end
   #
   def expect object, method, options, &block
-    stub object, method, Expectation.new(options), &block
-  end
-
-  # Intended for private use, but you can overwrite the +call+ method
-  # if you want to support more expectation options.
-  class Expectation # :nodoc:
-    attr :options
-
-    def initialize options
-      @options = options
-    end
-
-    def call *params
+    expectation = -> *params {
       with = options.fetch(:with) { [] }
       raise ExpectationError, "Expected #{with}, got #{params}" if params != with
-      options.fetch :returns
-    end
+      options.fetch(:returns)
+    }
+
+    stub object, method, expectation, &block
   end
 end
