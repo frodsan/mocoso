@@ -47,7 +47,7 @@ A quick example (uses [Cutest][cutest]):
     test 'stubbing an instance method' do
       user = User.new
 
-      stub user, valid?: true do
+      stub user, :valid?, true do
         assert user.valid?
       end
     end
