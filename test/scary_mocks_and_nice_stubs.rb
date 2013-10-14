@@ -80,12 +80,3 @@ test 'expectation with multiple arguments' do |subject|
     assert_equal 'new foo', subject.foo('new foo', optional: true)
   end
 end
-
-test 'stub within a stub' do |subject|
-  stub subject, :foo, 'outer' do
-    stub subject, :foo, 'inner' do
-      assert_equal 'inner', subject.foo
-    end
-    assert_equal 'outer', subject.foo
-  end
-end
