@@ -92,7 +92,7 @@ module Mocoso
     metaclass.send :define_method, method, original
   end
 
-  # Expect that method +method+ is called with the arguments specified in the
+  # Expects that method +method+ is called with the arguments specified in the
   # +:with+ option (defaults to +[]+ if it's not given) and returns the value
   # specified in the +:returns+ option. If expectations are not met, it raises
   # Mocoso::ExpectationError error. It uses #stub internally, so it will restore
