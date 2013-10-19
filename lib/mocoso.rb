@@ -83,7 +83,7 @@ module Mocoso
     original  = object.method method
 
     metaclass.send :define_method, method do |*args|
-      result.respond_to?(:call) ? result.call(*args) : result
+      result.respond_to?(:call) ? result.(*args) : result
     end
 
     yield
@@ -115,7 +115,7 @@ module Mocoso
     expectation = -> *params {
       with = options.fetch :with, []
       raise ExpectationError, "Expected #{with}, got #{params}" if params != with
-      options.fetch(:returns)
+      options.fetch :returns
     }
 
     stub object, method, expectation, &block
