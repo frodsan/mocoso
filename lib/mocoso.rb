@@ -113,7 +113,7 @@ module Mocoso
   #
   def expect object, method, options, &block
     expectation = -> *params {
-      with = options.fetch(:with) { [] }
+      with = options.fetch :with, []
       raise ExpectationError, "Expected #{with}, got #{params}" if params != with
       options.fetch(:returns)
     }
