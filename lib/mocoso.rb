@@ -50,15 +50,6 @@
 # * [4]: https://github.com/freerange/mocha/
 #
 module Mocoso
-  # Raised by #expect when a expectation is not fulfilled.
-  #
-  #   Mocoso.expect object, :method, with: 'argument', returns: nil do
-  #     object.method 'unexpected argument'
-  #     # => Mocoso::ExpectationError: Expected ["argument"], got ["unexpected argument"]
-  #   end
-  #
-  ExpectationError = Class.new StandardError
-
   # Rewrites each method from +methods+ and defined in +object+. +methods+ is a
   # Hash that represents stubbed method name symbols as keys and corresponding
   # return values as values. The methods are restored after the given +block+
@@ -124,4 +115,13 @@ module Mocoso
 
     stub object, method, expectation, &block
   end
+
+  # Raised by #expect when a expectation is not fulfilled.
+  #
+  #   Mocoso.expect object, :method, with: 'argument', returns: nil do
+  #     object.method 'unexpected argument'
+  #     # => Mocoso::ExpectationError: Expected ["argument"], got ["unexpected argument"]
+  #   end
+  #
+  ExpectationError = Class.new StandardError
 end
