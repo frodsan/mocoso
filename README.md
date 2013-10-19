@@ -1,7 +1,7 @@
 Mocoso
 ======
 
-Yet Another Simple Stub & Mock library. This is stolen from tools such as
+Yet Another Simple Stub & Mock library. This is inspired by (stolen from)
 [Minitest::Mock][minitest], [Override][override] and [Mocha][mocha].
 
 **Made in Peru.**
