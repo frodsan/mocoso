@@ -26,6 +26,8 @@
 #       expect User, :find, with: [1], returns: user do
 #         assert_equal user, User.find(1)
 #       end
+#
+#       assert_equal nil, User.find(1)
 #     end
 #
 #     test 'stubbing an instance method' do
@@ -34,6 +36,8 @@
 #       stub user, :valid?, true do
 #         assert user.valid?
 #       end
+#
+#       assert !user.valid?
 #     end
 #
 # Note: this example uses the test framework Cutest[1]:

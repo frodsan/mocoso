@@ -42,6 +42,8 @@ A quick example (uses [Cutest][cutest]):
       expect User, :find, with: [1], returns: user do
         assert_equal user, User.find(1)
       end
+
+      assert_equal nil, User.find(1)
     end
 
     test 'stubbing an instance method' do
@@ -50,6 +52,8 @@ A quick example (uses [Cutest][cutest]):
       stub user, :valid?, true do
         assert user.valid?
       end
+
+      assert !user.valid?
     end
 
 Check [Official Documentation][docs] for more details.
