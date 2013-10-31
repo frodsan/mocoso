@@ -65,7 +65,7 @@ module Mocoso
   #
   # You can pass a callable object (responds to +call+) as a value:
   #
-  #   Mocoso.stub subject, :foo, -> { "foo" } do
+  #   Mocoso.stub subject, :foo, -> { 'foo' } do
   #     subject.foo # => "foo"
   #   end
   #
@@ -73,7 +73,7 @@ module Mocoso
   #     subject.bar('foo') # => "foo"
   #   end
   #
-  def stub object, method, result, &block
+  def stub object, method, result
     metaclass = object.singleton_class
     original  = object.method method
 
@@ -106,14 +106,14 @@ module Mocoso
   #     # => true
   #   end
   #
-  def expect object, method, options, &block
+  def expect object, method, options
     expectation = -> *params {
       with = options.fetch :with, []
       raise ExpectationError, "Expected #{with}, got #{params}" if params != with
       options.fetch :returns
     }
 
-    stub object, method, expectation, &block
+    stub object, method, expectation, &proc
   end
 
   # Raised by #expect when a expectation is not fulfilled.
