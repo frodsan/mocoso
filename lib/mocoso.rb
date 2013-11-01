@@ -23,7 +23,7 @@
 #     test 'mocking a class method' do
 #       user = User.new
 #
-#       expect User, :find, with: [1], returns: user do
+#       expect User, :find, with: [1], return: user do
 #         assert_equal user, User.find(1)
 #       end
 #
@@ -88,8 +88,8 @@ module Mocoso
   end
 
   # Expects that method +method+ is called with the arguments specified in the
-  # +:with+ option (defaults to +[]+ if it's not given) and returns the value
-  # specified in the +:returns+ option. If expectations are not met, it raises
+  # +:with+ option (defaults to +[]+ if it's not given) and return the value
+  # specified in the +:return+ option. If expectations are not met, it raises
   # Mocoso::ExpectationError error. It uses #stub internally, so it will restore
   # the methods to their original implementation after the +block+ is executed.
   #
@@ -98,7 +98,7 @@ module Mocoso
   #
   #   user = User[1]
   #
-  #   Mocoso.expect user, :update, with: [{ name: 'new name' }], returns: true do
+  #   Mocoso.expect user, :update, with: [{ name: 'new name' }], return: true do
   #     subject.update unexpected: nil
   #     # => Mocoso::ExpectationError: Expected [{:name=>"new name"}], got [{:unexpected=>nil}]
   #
@@ -110,7 +110,7 @@ module Mocoso
     expectation = -> *params {
       with = options.fetch :with, []
       raise ExpectationError, "Expected #{with}, got #{params}" if params != with
-      options.fetch :returns
+      options.fetch :return
     }
 
     stub object, method, expectation, &proc
@@ -118,7 +118,7 @@ module Mocoso
 
   # Raised by #expect when a expectation is not fulfilled.
   #
-  #   Mocoso.expect object, :method, with: 'argument', returns: nil do
+  #   Mocoso.expect object, :method, with: 'argument', return: nil do
   #     object.method 'unexpected argument'
   #     # => Mocoso::ExpectationError: Expected ["argument"], got ["unexpected argument"]
   #   end

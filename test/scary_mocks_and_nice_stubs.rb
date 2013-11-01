@@ -56,7 +56,7 @@ test 'stubs method with a callable object that requires arguments' do |subject|
 end
 
 test 'succeeds if expectations are met' do |subject|
-  expect subject, :baz, with: ['value'], returns: 'result' do
+  expect subject, :baz, with: ['value'], return: 'result' do
     assert_equal 'result', subject.baz('value')
   end
 
@@ -64,19 +64,19 @@ test 'succeeds if expectations are met' do |subject|
 end
 
 test 'raises an error if expectation are not met' do |subject|
-  expect subject, :baz, with: ['value'], returns: 'result' do
+  expect subject, :baz, with: ['value'], return: 'result' do
     assert_raise(Mocoso::ExpectationError) { subject.baz('another') }
   end
 end
 
 test 'expectation without with option defaults to empty array' do |subject|
-  expect subject, :foo, returns: 'new foo' do
+  expect subject, :foo, return: 'new foo' do
     assert_equal 'new foo', subject.foo
   end
 end
 
 test 'expectation with multiple arguments' do |subject|
-  expect subject, :foo, with: ['new foo', { optional: true }], returns: 'new foo' do
+  expect subject, :foo, with: ['new foo', { optional: true }], return: 'new foo' do
     assert_equal 'new foo', subject.foo('new foo', optional: true)
   end
 end
