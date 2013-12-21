@@ -15,25 +15,25 @@
 #
 # Quick start:
 #
-#     require 'cutest'
-#     require 'mocoso'
+#     require "cutest"
+#     require "mocoso"
 #
 #     include Mocoso
 #
-#     test 'mocking a class method' do
+#     test "mocking a class method" do
 #       user = User.new
 #
-#       expect User, :find, with: [1], return: user do
+#       expect(User, :find, with: [1], return: user) do
 #         assert_equal user, User.find(1)
 #       end
 #
 #       assert_equal nil, User.find(1)
 #     end
 #
-#     test 'stubbing an instance method' do
+#     test "stubbing an instance method" do
 #       user = User.new
 #
-#       stub user, :valid?, true do
+#       stub(user, :valid?, true) do
 #         assert user.valid?
 #       end
 #
@@ -59,32 +59,32 @@ module Mocoso
   #
   #   signup.valid? # => false
   #
-  #   Mocoso.stub signup, :valid?, true do
+  #   Mocoso.stub(signup, :valid?, true) do
   #     signup.valid? # => true
   #   end
   #
   # You can pass a callable object (responds to +call+) as a value:
   #
-  #   Mocoso.stub subject, :foo, -> { 'foo' } do
+  #   Mocoso.stub(subject, :foo, -> { "foo" }) do
   #     subject.foo # => "foo"
   #   end
   #
-  #   Mocoso.stub subject, :bar, ->(value) { value } do
-  #     subject.bar('foo') # => "foo"
+  #   Mocoso.stub(subject, :bar, ->(value) { value }) do
+  #     subject.bar("foo") # => "foo"
   #   end
   #
-  def stub object, method, result
+  def stub(object, method, result)
     metaclass = object.singleton_class
-    original  = object.method method
+    original  = object.method(method)
 
-    metaclass.send :define_method, method do |*args|
+    metaclass.send(:define_method, method) do |*args|
       result.respond_to?(:call) ? result.(*args) : result
     end
 
     yield
   ensure
-    metaclass.send :undef_method, method
-    metaclass.send :define_method, method, original
+    metaclass.send(:undef_method, method)
+    metaclass.send(:define_method, method, original)
   end
 
   # Expects that method +method+ is called with the arguments specified in the
@@ -98,30 +98,30 @@ module Mocoso
   #
   #   user = User[1]
   #
-  #   Mocoso.expect user, :update, with: [{ name: 'new name' }], return: true do
-  #     subject.update unexpected: nil
+  #   Mocoso.expect(user, :update, with: [{ name: "new name" }], return: true) do
+  #     subject.update(unexpected: nil)
   #     # => Mocoso::ExpectationError: Expected [{:name=>"new name"}], got [{:unexpected=>nil}]
   #
-  #     user.update name: 'new name'
+  #     user.update(name: "new name")
   #     # => true
   #   end
   #
-  def expect object, method, options
-    expectation = -> *params {
-      with = options.fetch :with, []
+  def expect(object, method, options)
+    expectation = ->(*params) {
+      with = options.fetch(:with, [])
       raise ExpectationError, "Expected #{with}, got #{params}" if params != with
-      options.fetch :return
+      options.fetch(:return)
     }
 
-    stub object, method, expectation, &proc
+    stub(object, method, expectation, &proc)
   end
 
   # Raised by #expect when a expectation is not fulfilled.
   #
-  #   Mocoso.expect object, :method, with: 'argument', return: nil do
-  #     object.method 'unexpected argument'
+  #   Mocoso.expect(object, :method, with: "argument", return: nil) do
+  #     object.method("unexpected argument")
   #     # => Mocoso::ExpectationError: Expected ["argument"], got ["unexpected argument"]
   #   end
   #
-  ExpectationError = Class.new StandardError
+  ExpectationError = Class.new(StandardError)
 end
