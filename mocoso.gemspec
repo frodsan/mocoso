@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "mocoso"
-  s.version     = "1.2.0"
+  s.version     = "1.2.1"
   s.summary     = "A simple stub & mock library."
   s.description = s.summary
   s.authors     = ["Francesco Rodríguez"]
