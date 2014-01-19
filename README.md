@@ -55,3 +55,9 @@ A quick example (uses [Cutest][cutest]):
     end
 
 Check [Official Documentation][docs] for more details.
+
+[docs]: http://rubydoc.info/github/frodsan/mocoso/
+[cutest]: https://github.com/djanowski/cutest/
+[override]: https://github.com/soveran/override/
+[minitest]: https://github.com/seattlerb/minitest/
+[mocha]: https://github.com/freerange/mocha/
