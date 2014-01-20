@@ -29,30 +29,32 @@ Usage
 
 A quick example (uses [Cutest][cutest]):
 
-    require "cutest"
-    require "mocoso"
+```ruby
+require "cutest"
+require "mocoso"
 
-    include Mocoso
+include Mocoso
 
-    test "mocking a class method" do
-      user = User.new
+test "mocking a class method" do
+  user = User.new
 
-      expect(User, :find, with: [1], return: user) do
-        assert_equal user, User.find(1)
-      end
+  expect(User, :find, with: [1], return: user) do
+    assert_equal user, User.find(1)
+  end
 
-      assert_equal nil, User.find(1)
-    end
+  assert_equal nil, User.find(1)
+end
 
-    test "stubbing an instance method" do
-      user = User.new
+test "stubbing an instance method" do
+  user = User.new
 
-      stub(user, :valid?, true) do
-        assert user.valid?
-      end
+  stub(user, :valid?, true) do
+    assert user.valid?
+  end
 
-      assert !user.valid?
-    end
+  assert !user.valid?
+end
+```
 
 Check [Official Documentation][docs] for more details.
 
