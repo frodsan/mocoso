@@ -1,28 +1,19 @@
 Mocoso
 ======
 
-Yet Another Simple Stub & Mock library. This is inspired by (stolen from)
-[Minitest::Mock][minitest], [Override][override] and [Mocha][mocha].
+Yet Another Simple Stub & Mock library. This is inspired by
+[Minitest::Mock][minitest] and [Override][override].
 
-Motivation
-----------
+Description
+-----------
 
-**tl;dr: Il mío capriccio**
+Mocoso meets the following criteria:
 
-Yes, there are a lot of good libraries out there, but I wanted one that
-meets the following criteria:
-
+* Simplicity.
 * Always restore stubbed methods to their original implementations.
 * Doesn't allow to stub or mock undefined methods.
 * Doesn't monkey-patch any class or object.
-* Test-framework agnostic (Doesn't need integration code).
-
-And the most important: simplicity.
-
-Installation
-------------
-
-    $ gem install mocoso
+* Test-framework agnostic. No integration code.
 
 Usage
 -----
@@ -58,8 +49,14 @@ end
 
 Check [Official Documentation][docs] for more details.
 
+Installation
+------------
+
+```bash
+$ gem install mocoso
+```
+
 [docs]: http://rubydoc.info/github/frodsan/mocoso/
 [cutest]: https://github.com/djanowski/cutest/
 [override]: https://github.com/soveran/override/
 [minitest]: https://github.com/seattlerb/minitest/
-[mocha]: https://github.com/freerange/mocha/
