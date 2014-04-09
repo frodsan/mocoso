@@ -75,7 +75,7 @@ module Mocoso
   #
   def stub(object, method, result)
     metaclass = object.singleton_class
-    original  = object.method(method)
+    original = object.method(method)
 
     metaclass.send(:define_method, method) do |*args|
       result.respond_to?(:call) ? result.(*args) : result
