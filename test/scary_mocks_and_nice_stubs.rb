@@ -35,6 +35,16 @@ test "stubbed method return new value" do |subject|
   assert_equal before, subject.foo
 end
 
+test "stubs singleton method" do
+  before = Subject.foo
+
+  stub(Subject, :foo, "new foo") do
+    assert_equal "new foo", Subject.foo
+  end
+
+  assert_equal before, Subject.foo
+end
+
 test "stubs method with a callable object" do |subject|
   before = subject.foo
 
