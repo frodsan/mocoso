@@ -56,7 +56,7 @@ Installation
 $ gem install mocoso
 ```
 
-[docs]: http://rubydoc.info/github/frodsan/mocoso/
+[docs]: http://rubydoc.info/github/harmoni/mocoso/
 [cutest]: https://github.com/djanowski/cutest/
 [override]: https://github.com/soveran/override/
 [minitest]: https://github.com/seattlerb/minitest/
