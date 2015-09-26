@@ -1,8 +1,2 @@
-DEFAULT_GOAL := test
-.PHONY: test
-
-gem:
-	gem build ohm-validations.gemspec
-
-test:
+default:
 	cutest test/*.rb
