@@ -49,6 +49,14 @@ end
 
 Check [Official Documentation][docs] for more details.
 
+Contributing
+------------
+
+- Fork the project.
+- Use `make install` to install dependencies.
+- Use `make test` to run the test suite.
+- Create a pull request with your changes.
+
 Installation
 ------------
 
