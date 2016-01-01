@@ -1,4 +1,4 @@
-Mocoso
+Mocoso [![Build Status](https://travis-ci.org/frodsan/mocoso.svg)](https://travis-ci.org/frodsan/mocoso)
 ======
 
 Yet Another Simple Stub & Mock library. This is inspired by
@@ -14,6 +14,27 @@ Mocoso meets the following criteria:
 * Doesn't allow to stub or mock undefined methods.
 * Doesn't monkey-patch any class or object.
 * Test-framework agnostic. No integration code.
+
+Installation
+------------
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem "mocoso"
+```
+
+And then execute:
+
+```
+$ bundle
+```
+
+Or install it yourself as:
+
+```
+$ gem install mocoso
+```
 
 Usage
 -----
@@ -52,19 +73,34 @@ Check [Official Documentation][docs] for more details.
 Contributing
 ------------
 
-- Fork the project.
-- Use `make install` to install dependencies.
-- Use `make test` to run the test suite.
-- Create a pull request with your changes.
+Fork the project with:
 
-Installation
-------------
-
-```bash
-$ gem install mocoso
 ```
+$ git clone git@github.com:frodsan/mocoso.git
+```
+
+To install dependencies, use:
+
+```
+$ bundle install
+```
+
+To run the test suite, do:
+
+```
+$ rake test
+```
+
+For bug reports and pull requests use [GitHub][issues].
+
+License
+-------
+
+Envoker is released under the [MIT License][mit].
 
 [docs]: http://rubydoc.info/github/harmoni/mocoso/
 [cutest]: https://github.com/djanowski/cutest/
-[override]: https://github.com/soveran/override/
+[issues]: https://github.com/frodsan/mocoso/issues
 [minitest]: https://github.com/seattlerb/minitest/
+[mit]: http://www.opensource.org/licenses/MIT
+[override]: https://github.com/soveran/override/
