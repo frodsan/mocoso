@@ -96,7 +96,7 @@ For bug reports and pull requests use [GitHub][issues].
 License
 -------
 
-Envoker is released under the [MIT License][mit].
+Mocoso is released under the [MIT License][mit].
 
 [docs]: http://rubydoc.info/github/harmoni/mocoso/
 [cutest]: https://github.com/djanowski/cutest/
