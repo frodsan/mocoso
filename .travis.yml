@@ -1,5 +1,9 @@
-sudo: false
 language: ruby
+cache: bundler
+sudo: false
 rvm:
   - 2.2.4
   - 2.3.0
+script:
+  - bin/rake test
+  - bin/rubocop -D

@@ -12,5 +12,6 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*.rb"]
 
   s.add_development_dependency "cutest", "~> 1.2"
-  s.add_development_dependency "rake", "~> 10.0"
+  s.add_development_dependency "rake", "~> 11.0"
+  s.add_development_dependency "rubocop", "~> 0.39"
 end
