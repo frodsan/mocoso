@@ -79,6 +79,7 @@ module Mocoso
     metaclass = object.singleton_class
     original = object.method(method)
 
+    metaclass.send(:undef_method, method)
     metaclass.send(:define_method, method) do |*args|
       result.respond_to?(:call) ? result.call(*args) : result
     end
