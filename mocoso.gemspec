@@ -1,11 +1,11 @@
 Gem::Specification.new do |s|
   s.name        = "mocoso"
-  s.version     = "1.2.2"
+  s.version     = "1.2.3"
   s.summary     = "A simple stub & mock library."
   s.description = s.summary
   s.author      = "Francesco Rodríguez"
-  s.email       = "frodsan@protonmail.ch"
-  s.homepage    = "https://github.com/harmoni/mocoso"
+  s.email       = "hello@frodsan.com"
+  s.homepage    = "https://github.com/frodsan/mocoso"
   s.license     = "MIT"
 
   s.files      = Dir["LICENSE", "README.md", "lib/**/*.rb"]
