@@ -1,11 +1,21 @@
+# frozen_string_literal: true
+
 require "bundler/setup"
 require "cutest"
 require_relative "../lib/mocoso"
 
 class Subject
-  def foo; "foo"; end
-  def bar; "bar"; end
-  def baz(value); value; end
+  def foo
+    "foo"
+  end
+
+  def bar
+    "bar"
+  end
+
+  def baz(value)
+    value
+  end
 
   def self.foo
     "foo"
@@ -59,7 +69,7 @@ end
 test "stubs method with a callable object that requires arguments" do |subject|
   before = subject.foo
 
-  stub(subject, :foo, ->(a) { "new #{a}" }) do
+  stub(subject, :foo, ->(a) { "new #{ a }" }) do
     assert_equal "new foo", subject.foo("foo")
   end
 
@@ -87,7 +97,12 @@ test "expectation without with option defaults to empty array" do |subject|
 end
 
 test "expectation with multiple arguments" do |subject|
-  expect(subject, :foo, with: ["new foo", { optional: true }], return: "new foo") do
+  expect(
+    subject,
+    :foo,
+    with: ["new foo", { optional: true }],
+    return: "new foo"
+  ) do
     assert_equal "new foo", subject.foo("new foo", optional: true)
   end
 end

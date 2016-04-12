@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Yet Another Simple Stub & Mock library, that also:
 #
 #   - Always restore stubbed methods to their original implementations.
@@ -42,7 +44,7 @@
 #
 # Note: this example uses the test framework Cutest[1]:
 #
-# Mocoso is inspired by (stolen from) Override[2], Minitest::Mock[3] and Mocha[4].
+# Mocoso is inspired by Override[2], Minitest::Mock[3] and Mocha[4].
 #
 # * [1]: https://github.com/djanowski/cutest/
 # * [2]: https://github.com/soveran/override/
@@ -78,7 +80,7 @@ module Mocoso
     original = object.method(method)
 
     metaclass.send(:define_method, method) do |*args|
-      result.respond_to?(:call) ? result.(*args) : result
+      result.respond_to?(:call) ? result.call(*args) : result
     end
 
     yield
@@ -98,20 +100,25 @@ module Mocoso
   #
   #   user = User[1]
   #
-  #   Mocoso.expect(user, :update, with: [{ name: "new name" }], return: true) do
-  #     subject.update(unexpected: nil)
-  #     # => Mocoso::ExpectationError: Expected [{:name=>"new name"}], got [{:unexpected=>nil}]
+  #   Mocoso.expect(user, :update, with: [:age, 18], return: true) do
+  #     user.update(:name, "new name")
+  #     # => Mocoso::ExpectationError:
+  #     #     Expected [:age, 18], got [:name, "new name"]
   #
-  #     user.update(name: "new name")
+  #     user.update(:age, 18)
   #     # => true
   #   end
   #
   def expect(object, method, options, &block)
-    expectation = ->(*params) {
+    expectation = ->(*params) do
       with = options.fetch(:with, [])
-      raise ExpectationError, "Expected #{with}, got #{params}" unless params == with
+
+      if params != with
+        raise ExpectationError, "Expected #{ with }, got #{ params }"
+      end
+
       options.fetch(:return)
-    }
+    end
 
     stub(object, method, expectation, &block)
   end
@@ -120,7 +127,8 @@ module Mocoso
   #
   #   Mocoso.expect(object, :method, with: "argument", return: nil) do
   #     object.method("unexpected argument")
-  #     # => Mocoso::ExpectationError: Expected ["argument"], got ["unexpected argument"]
+  #     # => Mocoso::ExpectationError:
+  #     #     Expected ["argument"], got ["unexpected argument"]
   #   end
   #
   ExpectationError = Class.new(StandardError)
